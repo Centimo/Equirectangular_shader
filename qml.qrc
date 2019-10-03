@@ -5,6 +5,6 @@
         <file>qml/FileBrowser.qml</file>
         <file>images/icon_Folder.png</file>
         <file>images/icon_BackArrow.png</file>
-        <file>perspective_projection_shader.fsh</file>
+        <file>perspective_projection_equirectangular_shader.fsh</file>
     </qresource>
 </RCC>

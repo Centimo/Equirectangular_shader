@@ -68,7 +68,7 @@ Window {
             source: root.imageFileName
         }
 
-        fragmentShader: "qrc:/perspective_projection_shader.fsh"
+        fragmentShader: "qrc:/perspective_projection_equirectangular_shader.fsh"
     }
 
 
