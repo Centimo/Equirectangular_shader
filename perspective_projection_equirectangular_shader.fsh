@@ -4,12 +4,16 @@ uniform vec2 currentPosition;
 uniform int wheelPosition;
 uniform sampler2D source;
 
+
+#define M_PI 3.1415926535897932384626433832795
+
+
 mat3 makeRotationMatrix(float phi)
 {
     return mat3(
           1.0, 0.0,      0.0,
-        0.0, cos(phi), -sin(phi),
-        0.0, sin(phi), cos(phi)
+          0.0, cos(phi), -sin(phi),
+          0.0, sin(phi), cos(phi)
     );
 }
 
@@ -67,12 +71,11 @@ vec3 get_perpendicular(vec3 normal, float radius)
 
 void main()
 {
-    float Pi = 3.14159;
     float shpere_radius = 2.0;
     float z_buffer = 2.0;
     float lens_radius = log(exp(0.3*float(wheelPosition) ) + 1.0);
-    float tetha =  currentPosition.y * Pi;
-    float phi = -currentPosition.x * Pi * 2.0;
+    float tetha =  currentPosition.y * M_PI;
+    float phi = -currentPosition.x * M_PI * 2.0;
 
     vec3 uv = vec3((gl_FragCoord.xy/resolution.xy - 0.5), 0.0);
 
@@ -82,9 +85,9 @@ void main()
                                  -z_buffer * cos(tetha));
 
     vec3 first_lens_direction_vector = get_perpendicular(ray_source_point, lens_radius);
-    if (mod(phi, 2.0*Pi) < Pi/2.0 || mod(phi, 2.0*Pi) > 3.0 * Pi/2.0)
+    if (mod(phi, 2.0*M_PI) < M_PI/2.0 || mod(phi, 2.0*M_PI) > 3.0 * M_PI/2.0)
     {
-      // rotate on Pi
+      // rotate on M_PI
       first_lens_direction_vector *= -1.0;
     }
 
@@ -102,8 +105,8 @@ void main()
       return;
     }
 
-    vec2 point = vec2(atan(itersection_point.y, itersection_point.x)/Pi/2.0,
-                      acos(itersection_point.z / shpere_radius)/Pi);
+    vec2 point = vec2(atan(itersection_point.y, itersection_point.x)/M_PI/2.0,
+                      acos(itersection_point.z / shpere_radius)/M_PI);
 
     vec3 col = texture2D(source, vec2(mod(point.x, 1.0), point.y)).rgb;
     gl_FragColor = vec4(col, 1.0);
