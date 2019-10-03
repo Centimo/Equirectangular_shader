@@ -8,15 +8,6 @@ uniform sampler2D source;
 #define M_PI 3.1415926535897932384626433832795
 
 
-mat3 makeRotationMatrix(float phi)
-{
-    return mat3(
-          1.0, 0.0,      0.0,
-          0.0, cos(phi), -sin(phi),
-          0.0, sin(phi), cos(phi)
-    );
-}
-
 bool find_intersection_point(vec3 ray_source_point, vec3 lens_point, float radius, inout vec3 result)
 {
   vec3 direction_vector =  lens_point - ray_source_point;
